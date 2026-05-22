@@ -57,6 +57,7 @@ La app está disponible en:
 ---
 
 ## 📁 Estructura del proyecto
+```bash
 src/
 ├── components/
 │   ├── Header.jsx / Header.css
@@ -70,7 +71,7 @@ src/
 │   └── config.js
 ├── App.jsx
 └── main.jsx
-
+```
 ---
 
 Desarrollado con 🌸 para Nubys Silva Beauty Empire — Uruguay
