@@ -27,7 +27,6 @@ export const ClientsProvider = ({ children }) => {
   const [clients, setClients] = useState([]);
   const [loadingClients, setLoadingClients] = useState(false);
 
-  // Escuchar cambios de sesión
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u);
@@ -36,7 +35,6 @@ export const ClientsProvider = ({ children }) => {
     return unsub;
   }, []);
 
-  // Cargar clientas cuando hay usuario
   useEffect(() => {
     if (!user) return;
     setLoadingClients(true);
@@ -52,11 +50,16 @@ export const ClientsProvider = ({ children }) => {
 
   const logout = () => signOut(auth);
 
+  const getNombre = () => {
+    if (!user) return "";
+    return user.email.split("@")[0].charAt(0).toUpperCase() + user.email.split("@")[0].slice(1);
+  };
+
   const addClient = async (data) => {
     const docData = {
       ...data,
       historial: data.historial || [],
-      creadoPor: user.email,
+      creadoPor: getNombre(),
       creadoEn: new Date().toISOString().split("T")[0],
       creadoTs: serverTimestamp(),
     };
@@ -83,7 +86,7 @@ export const ClientsProvider = ({ children }) => {
   const addVisita = async (clientId, visita) => {
     const client = clients.find((c) => c.id === clientId);
     const historial = [
-      { ...visita, id: Date.now(), usuarioPor: user.email },
+      { ...visita, id: Date.now(), usuarioPor: getNombre() },
       ...(client.historial || []),
     ];
     await updateDoc(doc(db, "clientas", clientId), { historial });

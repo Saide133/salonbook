@@ -98,7 +98,9 @@ const Home = () => {
                     {(c.historial || []).length !== 1 ? "s" : ""}
                   </span>
                   {isBirthdaySoon(c.cumpleanos) && (
-                    <span className="home-card-bday">🎂 pronto</span>
+                    <span className="home-card-bday">
+                      <Cake size={13} /> pronto
+                    </span>
                   )}
                 </div>
               </div>

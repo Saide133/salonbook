@@ -95,3 +95,56 @@
   text-align: center;
   margin-top: 12px;
 }
+
+.login-usuarios {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.login-usuario-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 12px;
+  border: 1.5px solid #f0e0e0;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.login-usuario-btn:hover {
+  border-color: #e8a0b0;
+  background: #fdf6f0;
+}
+
+.login-usuario-btn.selected {
+  border-color: #d4849a;
+  background: #fdf0f5;
+}
+
+.login-usuario-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f5c0c0, #e8a0b0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  color: white;
+}
+
+.login-usuario-btn.selected .login-usuario-avatar {
+  background: linear-gradient(135deg, #e8a0a0, #d4849a);
+}
+
+.login-usuario-nombre {
+  font-size: 13px;
+  color: #5c3d3d;
+  font-weight: 500;
+}

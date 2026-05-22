@@ -155,8 +155,11 @@
 }
 
 .home-card-bday {
-  font-size: 11px;
-  color: #d4849a;
+  font-size: 14px;
+  color: #c9a96e;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 @media (max-width: 600px) {

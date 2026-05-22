@@ -14,11 +14,36 @@
   width: 100%;
   max-width: 680px;
   max-height: 85vh;
-  overflow-y: auto;
   background: white;
   border-radius: 12px;
   box-shadow: 0 20px 60px rgba(200, 150, 150, 0.25);
   animation: slideIn 0.2s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.cp-body {
+  overflow-y: auto;
+  flex: 1;
+  padding: 24px 28px;
+}
+
+.cp-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cp-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cp-body::-webkit-scrollbar-thumb {
+  background: #f0d0d8;
+  border-radius: 20px;
+}
+
+.cp-body::-webkit-scrollbar-thumb:hover {
+  background: #d4849a;
 }
 
 @keyframes slideIn {
@@ -89,8 +114,6 @@
 }
 
 .cp-close:hover { opacity: 1; }
-
-.cp-body { padding: 24px 28px; }
 
 .cp-section-title {
   font-size: 10px;
@@ -362,4 +385,21 @@
 
 .cp-visita-edit:hover {
   color: #d4849a;
+}
+
+.cp-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cp-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cp-panel::-webkit-scrollbar-thumb {
+  background: #f0d0d8;
+  border-radius: 20px;
+}
+
+.cp-panel::-webkit-scrollbar-thumb:hover {
+  background: #d4849a;
 }
