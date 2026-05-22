@@ -1,0 +1,365 @@
+.cp-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(92, 61, 61, 0.25);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.cp-panel {
+  width: 100%;
+  max-width: 680px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(200, 150, 150, 0.25);
+  animation: slideIn 0.2s ease;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(40px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+.cp-header {
+  background: linear-gradient(135deg, #f5c0c0, #e8a0b0);
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.cp-title {
+  font-family: Georgia, serif;
+  color: white;
+  font-size: 18px;
+}
+
+.cp-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cp-btn-edit {
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.25);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.cp-btn-edit:hover {
+  background: rgba(255,255,255,0.4);
+}
+
+.cp-btn-delete {
+  padding: 6px 14px;
+  background: none;
+  color: rgba(255,255,255,0.7);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.cp-btn-delete:hover {
+  color: white;
+  border-color: rgba(255,255,255,0.7);
+}
+
+.cp-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.8;
+  margin-left: 4px;
+}
+
+.cp-close:hover { opacity: 1; }
+
+.cp-body { padding: 24px 28px; }
+
+.cp-section-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #d4849a;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #fae8e8;
+}
+
+.cp-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.cp-info-label {
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #c9a0a0;
+  margin-bottom: 4px;
+}
+
+.cp-info-val {
+  font-size: 14px;
+  color: #5c3d3d;
+}
+
+.cp-divider {
+  border-top: 1px solid #fae8e8;
+  margin: 20px 0;
+}
+
+.cp-text {
+  font-size: 14px;
+  color: #5c3d3d;
+  line-height: 1.6;
+}
+
+.cp-empty-text {
+  font-size: 13px;
+  color: #c9a0a0;
+  font-style: italic;
+}
+
+.cp-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.cp-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #b8a0a0;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.cp-optional {
+  color: #c9a0a0;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+.cp-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #f0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #5c3d3d;
+  margin-bottom: 16px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.cp-input:focus { border-color: #e8a0b0; }
+
+.cp-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #f0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #5c3d3d;
+  margin-bottom: 16px;
+  min-height: 70px;
+  resize: vertical;
+  line-height: 1.5;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.cp-textarea:focus { border-color: #e8a0b0; }
+
+/* HISTORIAL */
+.cp-historial {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.cp-visita {
+  background: #fdf6f0;
+  border: 1px solid #fae8e8;
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.cp-visita-date {
+  text-align: center;
+  min-width: 40px;
+}
+
+.cp-visita-day {
+  display: block;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  color: #d4849a;
+  line-height: 1;
+}
+
+.cp-visita-mon {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #c9a0a0;
+}
+
+.cp-visita-yr {
+  display: block;
+  font-size: 10px;
+  color: #c9a0a0;
+}
+
+.cp-visita-detail { flex: 1; }
+
+.cp-visita-trat {
+  font-size: 14px;
+  color: #5c3d3d;
+  font-weight: 500;
+}
+
+.cp-visita-by {
+  font-size: 11px;
+  color: #c9a0a0;
+  margin-top: 3px;
+}
+
+.cp-visita-com {
+  font-size: 13px;
+  color: #a08080;
+  margin-top: 8px;
+  line-height: 1.5;
+  padding: 8px 10px;
+  background: white;
+  border-radius: 6px;
+  border-left: 3px solid #f5c0c0;
+}
+
+.cp-visita-del {
+  background: none;
+  border: none;
+  color: #e0c0c0;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 6px;
+}
+
+.cp-visita-del:hover { color: #c0544a; }
+
+.cp-add-visita {
+  background: #fdf6f0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 8px;
+}
+
+.cp-btn-add-visita {
+  padding: 8px 18px;
+  background: none;
+  color: #d4849a;
+  border: 1.5px solid #f5c0c0;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.cp-btn-add-visita:hover {
+  background: #fdf6f0;
+}
+
+.cp-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.cp-btn-cancel {
+  padding: 12px 20px;
+  background: none;
+  color: #b8a0a0;
+  border: 1.5px solid #f0e0e0;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.cp-btn-cancel:hover {
+  border-color: #d4849a;
+  color: #d4849a;
+}
+
+.cp-btn-save {
+  flex: 1;
+  padding: 12px;
+  background: linear-gradient(135deg, #e8a0a0, #d4849a);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.cp-btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .cp-panel { width: 100vw; }
+  .cp-grid2 { grid-template-columns: 1fr; }
+}
+
+.cp-visita-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cp-visita-edit {
+  background: none;
+  border: none;
+  color: #e0c0c0;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 6px;
+}
+
+.cp-visita-edit:hover {
+  color: #d4849a;
+}

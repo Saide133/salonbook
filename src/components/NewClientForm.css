@@ -1,0 +1,210 @@
+.ncf-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(92, 61, 61, 0.25);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.ncf-panel {
+  width: 100%;
+  max-width: 680px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(200, 150, 150, 0.25);
+}
+
+.ncf-header {
+  background: linear-gradient(135deg, #f5c0c0, #e8a0b0);
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-radius: 12px 12px 0 0;
+}
+
+.ncf-title {
+  font-family: Georgia, serif;
+  color: white;
+  font-size: 18px;
+}
+
+.ncf-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.ncf-close:hover {
+  opacity: 1;
+}
+
+.ncf-body {
+  padding: 24px 28px;
+}
+
+.ncf-section-title {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #d4849a;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #fae8e8;
+}
+
+.ncf-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.ncf-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #b8a0a0;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.ncf-optional {
+  color: #c9a0a0;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+.ncf-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #f0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #5c3d3d;
+  margin-bottom: 16px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.ncf-input:focus {
+  border-color: #e8a0b0;
+}
+
+.ncf-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #f0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #5c3d3d;
+  margin-bottom: 16px;
+  min-height: 70px;
+  resize: vertical;
+  line-height: 1.5;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.ncf-textarea:focus {
+  border-color: #e8a0b0;
+}
+
+.ncf-divider {
+  border-top: 1px solid #fae8e8;
+  margin: 8px 0 24px;
+}
+
+.ncf-check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.ncf-check-row input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #d4849a;
+  cursor: pointer;
+}
+
+.ncf-check-label {
+  font-size: 13px;
+  color: #5c3d3d;
+  cursor: pointer;
+}
+
+.ncf-visita-box {
+  background: #fdf6f0;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.ncf-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.ncf-btn-cancel {
+  padding: 12px 20px;
+  background: none;
+  color: #b8a0a0;
+  border: 1.5px solid #f0e0e0;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.ncf-btn-cancel:hover {
+  border-color: #d4849a;
+  color: #d4849a;
+}
+
+.ncf-btn-save {
+  flex: 1;
+  padding: 12px;
+  background: linear-gradient(135deg, #e8a0a0, #d4849a);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.ncf-btn-save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .ncf-grid2 {
+    grid-template-columns: 1fr;
+  }
+
+  .ncf-body {
+    padding: 20px 16px;
+  }
+}
