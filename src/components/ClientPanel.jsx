@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useClients } from "../context/ClientsContext";
+import { Bell } from "lucide-react";
 import "./ClientPanel.css";
 
 const months = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
@@ -25,6 +26,8 @@ const ClientPanel = ({ client, onClose }) => {
     fecha: "",
     tratamiento: "",
     comentarios: "",
+    seguimiento: false,
+    fechaSeguimiento: "",
   });
 
   const handleSaveEdit = async () => {
@@ -46,7 +49,7 @@ const ClientPanel = ({ client, onClose }) => {
     await addVisita(client.id, newVisita);
     setSaving(false);
     setShowAddVisita(false);
-    setNewVisita({ fecha: "", tratamiento: "", comentarios: "" });
+    setNewVisita({ fecha: "", tratamiento: "", comentarios: "", seguimiento: false, fechaSeguimiento: "" });
   };
 
   const handleSaveVisita = async () => {
@@ -207,6 +210,28 @@ const ClientPanel = ({ client, onClose }) => {
                               <textarea className="cp-textarea"
                                 value={editVisitaForm.comentarios || ""}
                                 onChange={(e) => setEditVisitaForm({ ...editVisitaForm, comentarios: e.target.value })} />
+
+                              <div className="cp-seguimiento-row">
+                                <input
+                                  type="checkbox"
+                                  id="seguimientoEdit"
+                                  checked={editVisitaForm.seguimiento || false}
+                                  onChange={(e) => setEditVisitaForm({ ...editVisitaForm, seguimiento: e.target.checked, fechaSeguimiento: "" })}
+                                />
+                                <label htmlFor="seguimientoEdit" className="cp-seguimiento-label">
+                                  Recordatorio de seguimiento
+                                </label>
+                              </div>
+
+                              {editVisitaForm.seguimiento && (
+                                <div className="cp-seguimiento-fecha">
+                                  <label className="cp-label">Fecha de seguimiento</label>
+                                  <input className="cp-input" type="date"
+                                    value={editVisitaForm.fechaSeguimiento || ""}
+                                    onChange={(e) => setEditVisitaForm({ ...editVisitaForm, fechaSeguimiento: e.target.value })} />
+                                </div>
+                              )}
+
                               <div className="cp-actions">
                                 <button className="cp-btn-cancel" onClick={() => setEditingVisita(null)}>Cancelar</button>
                                 <button className="cp-btn-save" onClick={handleSaveVisita} disabled={saving}>
@@ -221,6 +246,12 @@ const ClientPanel = ({ client, onClose }) => {
                               {h.comentarios && (
                                 <div className="cp-visita-com">{h.comentarios}</div>
                               )}
+                              {h.seguimiento && h.fechaSeguimiento && (
+                                <div className="cp-visita-seguimiento">
+                                  <Bell size={12} />
+                                  Seguimiento: {formatDate(h.fechaSeguimiento)}
+                                </div>
+                              )}
                             </>
                           )}
                         </div>
@@ -229,7 +260,13 @@ const ClientPanel = ({ client, onClose }) => {
                           <div className="cp-visita-actions">
                             <button className="cp-visita-edit" onClick={() => {
                               setEditingVisita(h.id);
-                              setEditVisitaForm({ fecha: h.fecha, tratamiento: h.tratamiento, comentarios: h.comentarios || "" });
+                              setEditVisitaForm({ 
+                                fecha: h.fecha, 
+                                tratamiento: h.tratamiento, 
+                                comentarios: h.comentarios || "",
+                                seguimiento: h.seguimiento || false,
+                                fechaSeguimiento: h.fechaSeguimiento || "",
+                              });
                             }}>✎</button>
                             <button className="cp-visita-del" onClick={() => deleteVisita(client.id, h.id)}>✕</button>
                           </div>
@@ -261,6 +298,28 @@ const ClientPanel = ({ client, onClose }) => {
                   <textarea className="cp-textarea" placeholder="Observaciones, reacciones, próximos pasos…"
                     value={newVisita.comentarios}
                     onChange={(e) => setNewVisita({ ...newVisita, comentarios: e.target.value })} />
+
+                  <div className="cp-seguimiento-row">
+                    <input
+                      type="checkbox"
+                      id="seguimientoNew"
+                      checked={newVisita.seguimiento}
+                      onChange={(e) => setNewVisita({ ...newVisita, seguimiento: e.target.checked, fechaSeguimiento: "" })}
+                    />
+                    <label htmlFor="seguimientoNew" className="cp-seguimiento-label">
+                      Recordatorio de seguimiento
+                    </label>
+                  </div>
+
+                  {newVisita.seguimiento && (
+                    <div className="cp-seguimiento-fecha">
+                      <label className="cp-label">Fecha de seguimiento</label>
+                      <input className="cp-input" type="date"
+                        value={newVisita.fechaSeguimiento}
+                        onChange={(e) => setNewVisita({ ...newVisita, fechaSeguimiento: e.target.value })} />
+                    </div>
+                  )}
+
                   <div className="cp-actions">
                     <button className="cp-btn-cancel" onClick={() => setShowAddVisita(false)}>Cancelar</button>
                     <button className="cp-btn-save" onClick={handleAddVisita} disabled={saving}>
