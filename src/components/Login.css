@@ -10,7 +10,7 @@
   background: white;
   border-radius: 16px;
   padding: 48px 40px;
-  width: 360px;
+  width: min(360px, 100%);
   box-shadow: 0 8px 40px rgba(200, 150, 150, 0.15);
   display: flex;
   flex-direction: column;
@@ -147,4 +147,25 @@
   font-size: 13px;
   color: #5c3d3d;
   font-weight: 500;
+}
+
+@media (max-width: 600px) {
+  .login-wrap {
+    align-items: center;
+    padding: 20px 16px;
+  }
+
+  .login-card {
+    width: 100%;
+    padding: 32px 24px;
+    border-radius: 12px;
+  }
+
+  .login-usuarios {
+    gap: 10px;
+  }
+
+  .login-usuario-btn {
+    padding: 14px 8px;
+  }
 }
