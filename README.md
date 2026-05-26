@@ -12,6 +12,13 @@ Aplicación web para la gestión interna de clientas del salón **Nubys Silva Be
 - ✏️ Edición y eliminación de fichas y visitas
 - 🎂 Banner de aviso de cumpleaños próximos
 - 🔍 Búsqueda por nombre o teléfono
+- 🗂️ Vista grilla o lista con preferencia guardada entre sesiones
+- 🔃 Ordenamiento por nombre o visita más reciente
+- 🕐 Indicador de última visita en cada ficha
+- 🔔 Recordatorio de seguimiento opcional en cada visita
+- 🎙️ Dictado de voz en campos de texto (Chrome y mobile)
+- 💬 Link directo a WhatsApp desde el teléfono de la clienta
+- ⚡ Actualización en tiempo real entre usuarias
 - 📱 Diseño responsive — funciona en mobile y desktop
 
 ---
@@ -20,8 +27,9 @@ Aplicación web para la gestión interna de clientas del salón **Nubys Silva Be
 
 - [React](https://react.dev/) + [Vite](https://vitejs.dev/)
 - [Firebase Auth](https://firebase.google.com/products/auth) — autenticación
-- [Firebase Firestore](https://firebase.google.com/products/firestore) — base de datos
+- [Firebase Firestore](https://firebase.google.com/products/firestore) — base de datos en tiempo real
 - [Lucide React](https://lucide.dev/) — iconos
+- [Netlify](https://netlify.com) — deploy y hosting
 - CSS modular por componente
 
 ---
@@ -38,12 +46,12 @@ La app está disponible en:
 1. Cloná el repositorio
 2. Instalá las dependencias:
 ```bash
-   npm install
+npm install
 ```
 3. Creá un archivo `.env` basado en `.env.example` y completá con tus credenciales de Firebase
 4. Corré el servidor de desarrollo:
 ```bash
-   npm run dev
+npm run dev
 ```
 
 ---
@@ -64,9 +72,12 @@ src/
 │   ├── Home.jsx / Home.css
 │   ├── Login.jsx / Login.css
 │   ├── ClientPanel.jsx / ClientPanel.css
-│   └── NewClientForm.jsx / NewClientForm.css
+│   ├── NewClientForm.jsx / NewClientForm.css
+│   └── MicButton.jsx / MicButton.css
 ├── context/
 │   └── ClientsContext.jsx
+├── hooks/
+│   └── useSpeech.js
 ├── firebase/
 │   └── config.js
 ├── App.jsx
