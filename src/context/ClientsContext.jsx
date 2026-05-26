@@ -9,6 +9,7 @@ import {
   query,
   orderBy,
   serverTimestamp,
+  onSnapshot,
 } from "firebase/firestore";
 import {
   signInWithEmailAndPassword,
@@ -39,10 +40,11 @@ export const ClientsProvider = ({ children }) => {
     if (!user) return;
     setLoadingClients(true);
     const q = query(collection(db, "clientas"), orderBy("nombre"));
-    getDocs(q).then((snap) => {
+    const unsub = onSnapshot(q, (snap) => {
       setClients(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
       setLoadingClients(false);
     });
+    return unsub;
   }, [user]);
 
   const login = (email, password) =>
