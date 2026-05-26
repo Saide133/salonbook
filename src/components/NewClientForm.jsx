@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useClients } from "../context/ClientsContext";
 import "./NewClientForm.css";
+import MicButton from "./MicButton";
+import "./MicButton.css";
 
 const NewClientForm = ({ onClose }) => {
   const { addClient, user } = useClients();
   const [saving, setSaving] = useState(false);
+  const bodyRef = useRef(null);
+  const scrollUp = () => bodyRef.current?.scrollBy({ top: -150, behavior: "smooth" });
+  const scrollDown = () => bodyRef.current?.scrollBy({ top: 150, behavior: "smooth" });
 
   const [form, setForm] = useState({
     nombre: "",
@@ -50,16 +55,19 @@ const NewClientForm = ({ onClose }) => {
           <button className="ncf-close" onClick={onClose}>✕</button>
         </div>
 
-        <div className="ncf-body">
+        <div className="ncf-body" ref={bodyRef}>
 
-          {/* DATOS PERSONALES */}
           <p className="ncf-section-title">Datos personales</p>
           <div className="ncf-grid2">
             <div>
               <label className="ncf-label">Nombre completo *</label>
               <input className="ncf-input" placeholder="Nombre y apellido"
                 value={form.nombre}
-                onChange={(e) => setForm({ ...form, nombre: e.target.value })} />
+                onChange={(e) => {
+                  const val = e.target.value;
+                  const capitalizado = val.charAt(0).toUpperCase() + val.slice(1);
+                  setForm({ ...form, nombre: capitalizado });
+                }} />
             </div>
             <div>
               <label className="ncf-label">Teléfono</label>
@@ -74,21 +82,25 @@ const NewClientForm = ({ onClose }) => {
             value={form.cumpleanos}
             onChange={(e) => setForm({ ...form, cumpleanos: e.target.value })} />
 
-          {/* FICHA TÉCNICA */}
           <div className="ncf-divider" />
           <p className="ncf-section-title">Ficha técnica</p>
 
-          <label className="ncf-label">Diagnóstico del cabello</label>
+          <div className="ncf-field-with-mic">
+            <label className="ncf-label">Diagnóstico del cabello</label>
+            <MicButton onResult={(text) => setForm({ ...form, diagnostico: form.diagnostico + " " + text })} currentValue={form.diagnostico} />
+          </div>
           <textarea className="ncf-textarea" placeholder="Tipo de cabello, estado, observaciones técnicas…"
             value={form.diagnostico}
             onChange={(e) => setForm({ ...form, diagnostico: e.target.value })} />
 
-          <label className="ncf-label">Notas / Preferencias</label>
+          <div className="ncf-field-with-mic">
+            <label className="ncf-label">Notas / Preferencias</label>
+            <MicButton onResult={(text) => setForm({ ...form, notas: form.notas + " " + text })} currentValue={form.notas} />
+          </div>
           <textarea className="ncf-textarea" placeholder="Gustos, particularidades, alergias…"
             value={form.notas}
             onChange={(e) => setForm({ ...form, notas: e.target.value })} />
 
-          {/* PRIMERA VISITA */}
           <div className="ncf-divider" />
           <p className="ncf-section-title">Primera visita</p>
 
@@ -126,7 +138,6 @@ const NewClientForm = ({ onClose }) => {
             </div>
           )}
 
-          {/* BOTONES */}
           <div className="ncf-actions">
             <button className="ncf-btn-cancel" onClick={onClose}>Cancelar</button>
             <button
@@ -139,6 +150,12 @@ const NewClientForm = ({ onClose }) => {
           </div>
 
         </div>
+
+        <div className="ncf-scroll-arrows">
+          <button className="ncf-scroll-btn" onClick={scrollUp}>▲</button>
+          <button className="ncf-scroll-btn" onClick={scrollDown}>▼</button>
+        </div>
+
       </div>
     </div>
   );

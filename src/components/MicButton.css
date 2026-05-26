@@ -1,0 +1,29 @@
+.mic-btn {
+  background: none;
+  border: 1.5px solid #f0e0e0;
+  border-radius: 20px;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: #c9a0a0;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.mic-btn:hover {
+  border-color: #d4849a;
+  color: #d4849a;
+}
+
+.mic-btn-active {
+  background: #fce8e8;
+  border-color: #d4849a;
+  color: #d4849a;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}

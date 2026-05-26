@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useClients } from "../context/ClientsContext";
-import { Bell } from "lucide-react";
+import { Bell, MessageCircle } from "lucide-react";
 import "./ClientPanel.css";
+import MicButton from "./MicButton";
+import "./MicButton.css";
 
 const months = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
 
@@ -20,6 +22,9 @@ const ClientPanel = ({ client, onClose }) => {
   const [editForm, setEditForm] = useState({ ...client });
   const [showAddVisita, setShowAddVisita] = useState(false);
   const [saving, setSaving] = useState(false);
+  const bodyRef = useRef(null);
+  const scrollUp = () => bodyRef.current?.scrollBy({ top: -150, behavior: "smooth" });
+  const scrollDown = () => bodyRef.current?.scrollBy({ top: 150, behavior: "smooth" });
   const [editingVisita, setEditingVisita] = useState(null);
   const [editVisitaForm, setEditVisitaForm] = useState({});
   const [newVisita, setNewVisita] = useState({
@@ -88,7 +93,7 @@ const ClientPanel = ({ client, onClose }) => {
           </div>
         </div>
 
-        <div className="cp-body">
+        <div className="cp-body" ref={bodyRef}>
           {editing ? (
             <>
               <p className="cp-section-title">Editar ficha</p>
@@ -132,7 +137,21 @@ const ClientPanel = ({ client, onClose }) => {
               <div className="cp-info-grid">
                 <div>
                   <div className="cp-info-label">Teléfono</div>
-                  <div className="cp-info-val">{client.telefono || "—"}</div>
+                  <div className="cp-info-val">
+                  {client.telefono
+                    ? <a href={`https://wa.me/598${client.telefono.replace(/\D/g, "")}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="cp-whatsapp-link">
+                    {client.telefono}
+                    <img 
+                      src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
+                      alt="WhatsApp"
+                      style={{width:"16px", height:"16px", verticalAlign:"middle", marginLeft:"4px"}}
+                    />
+                  </a>
+                    : "—"}
+                </div>
                 </div>
                 <div>
                   <div className="cp-info-label">Cumpleaños</div>
@@ -169,6 +188,65 @@ const ClientPanel = ({ client, onClose }) => {
               {/* HISTORIAL */}
               <p className="cp-section-title">Historial de visitas</p>
 
+              {showAddVisita ? (
+                <div className="cp-add-visita">
+                  <div className="cp-grid2">
+                    <div>
+                      <label className="cp-label">Fecha</label>
+                      <input className="cp-input" type="date" value={newVisita.fecha}
+                        onChange={(e) => setNewVisita({ ...newVisita, fecha: e.target.value })} />
+                    </div>
+                    <div>
+                      <label className="cp-label">Tratamiento</label>
+                      <input className="cp-input" placeholder="Ej: Corte + keratina"
+                        value={newVisita.tratamiento}
+                        onChange={(e) => setNewVisita({ ...newVisita, tratamiento: e.target.value })} />
+                    </div>
+                  </div>
+                  <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"6px"}}>
+                    <label className="cp-label" style={{marginBottom:0}}>
+                      Comentarios <span className="cp-optional">(opcional)</span>
+                    </label>
+                    <MicButton onResult={(text) => setNewVisita({ ...newVisita, comentarios: newVisita.comentarios + " " + text })} currentValue={newVisita.comentarios} />
+                  </div>
+                  <textarea className="cp-textarea" placeholder="Observaciones, reacciones, próximos pasos…"
+                    value={newVisita.comentarios}
+                    onChange={(e) => setNewVisita({ ...newVisita, comentarios: e.target.value })} />
+
+                  <div className="cp-seguimiento-row">
+                    <input
+                      type="checkbox"
+                      id="seguimientoNew"
+                      checked={newVisita.seguimiento}
+                      onChange={(e) => setNewVisita({ ...newVisita, seguimiento: e.target.checked, fechaSeguimiento: "" })}
+                    />
+                    <label htmlFor="seguimientoNew" className="cp-seguimiento-label">
+                      Recordatorio de seguimiento
+                    </label>
+                  </div>
+
+                  {newVisita.seguimiento && (
+                    <div className="cp-seguimiento-fecha">
+                      <label className="cp-label">Fecha de seguimiento</label>
+                      <input className="cp-input" type="date"
+                        value={newVisita.fechaSeguimiento}
+                        onChange={(e) => setNewVisita({ ...newVisita, fechaSeguimiento: e.target.value })} />
+                    </div>
+                  )}
+
+                  <div className="cp-actions">
+                    <button className="cp-btn-cancel" onClick={() => setShowAddVisita(false)}>Cancelar</button>
+                    <button className="cp-btn-save" onClick={handleAddVisita} disabled={saving}>
+                      {saving ? "Guardando…" : "Guardar visita"}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button className="cp-btn-add-visita" onClick={() => setShowAddVisita(true)}>
+                  + Agregar visita
+                </button>
+              )}
+
               {historial.length === 0 ? (
                 <p className="cp-empty-text" style={{ marginBottom: "16px" }}>
                   Sin visitas registradas todavía.
@@ -204,9 +282,12 @@ const ClientPanel = ({ client, onClose }) => {
                                     onChange={(e) => setEditVisitaForm({ ...editVisitaForm, tratamiento: e.target.value })} />
                                 </div>
                               </div>
-                              <label className="cp-label">
-                                Comentarios <span className="cp-optional">(opcional)</span>
-                              </label>
+                              <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:"6px"}}>
+                                <label className="cp-label" style={{marginBottom:0}}>
+                                  Comentarios <span className="cp-optional">(opcional)</span>
+                                </label>
+                                <MicButton onResult={(text) => setEditVisitaForm({ ...editVisitaForm, comentarios: (editVisitaForm.comentarios || "") + " " + text })} currentValue={editVisitaForm.comentarios || ""} />
+                              </div>
                               <textarea className="cp-textarea"
                                 value={editVisitaForm.comentarios || ""}
                                 onChange={(e) => setEditVisitaForm({ ...editVisitaForm, comentarios: e.target.value })} />
@@ -276,65 +357,15 @@ const ClientPanel = ({ client, onClose }) => {
                   })}
                 </div>
               )}
-
-              {showAddVisita ? (
-                <div className="cp-add-visita">
-                  <div className="cp-grid2">
-                    <div>
-                      <label className="cp-label">Fecha</label>
-                      <input className="cp-input" type="date" value={newVisita.fecha}
-                        onChange={(e) => setNewVisita({ ...newVisita, fecha: e.target.value })} />
-                    </div>
-                    <div>
-                      <label className="cp-label">Tratamiento</label>
-                      <input className="cp-input" placeholder="Ej: Corte + keratina"
-                        value={newVisita.tratamiento}
-                        onChange={(e) => setNewVisita({ ...newVisita, tratamiento: e.target.value })} />
-                    </div>
-                  </div>
-                  <label className="cp-label">
-                    Comentarios <span className="cp-optional">(opcional)</span>
-                  </label>
-                  <textarea className="cp-textarea" placeholder="Observaciones, reacciones, próximos pasos…"
-                    value={newVisita.comentarios}
-                    onChange={(e) => setNewVisita({ ...newVisita, comentarios: e.target.value })} />
-
-                  <div className="cp-seguimiento-row">
-                    <input
-                      type="checkbox"
-                      id="seguimientoNew"
-                      checked={newVisita.seguimiento}
-                      onChange={(e) => setNewVisita({ ...newVisita, seguimiento: e.target.checked, fechaSeguimiento: "" })}
-                    />
-                    <label htmlFor="seguimientoNew" className="cp-seguimiento-label">
-                      Recordatorio de seguimiento
-                    </label>
-                  </div>
-
-                  {newVisita.seguimiento && (
-                    <div className="cp-seguimiento-fecha">
-                      <label className="cp-label">Fecha de seguimiento</label>
-                      <input className="cp-input" type="date"
-                        value={newVisita.fechaSeguimiento}
-                        onChange={(e) => setNewVisita({ ...newVisita, fechaSeguimiento: e.target.value })} />
-                    </div>
-                  )}
-
-                  <div className="cp-actions">
-                    <button className="cp-btn-cancel" onClick={() => setShowAddVisita(false)}>Cancelar</button>
-                    <button className="cp-btn-save" onClick={handleAddVisita} disabled={saving}>
-                      {saving ? "Guardando…" : "Guardar visita"}
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <button className="cp-btn-add-visita" onClick={() => setShowAddVisita(true)}>
-                  + Agregar visita
-                </button>
-              )}
             </>
           )}
         </div>
+
+        <div className="cp-scroll-arrows">
+          <button className="cp-scroll-btn" onClick={scrollUp}>▲</button>
+          <button className="cp-scroll-btn" onClick={scrollDown}>▼</button>
+        </div>
+
       </div>
     </div>
   );

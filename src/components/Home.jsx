@@ -35,7 +35,7 @@ const Home = () => {
   const [showNew, setShowNew] = useState(false);
   const [selectedClient, setSelectedClient] = useState(null);
   const [orden, setOrden] = useState("nombre");
-  const [vista, setVista] = useState("grilla");
+  const [vista, setVista] = useState(() => localStorage.getItem("vistaClientas") || "grilla");
 
   const filtered = clients
     .filter(
@@ -96,15 +96,14 @@ const Home = () => {
           <div className="home-vista-toggle">
             <button
               className={`home-vista-btn ${vista === "grilla" ? "active" : ""}`}
-              onClick={() => setVista("grilla")}
+              onClick={() => { setVista("grilla"); localStorage.setItem("vistaClientas", "grilla"); }}
               title="Vista grilla"
             >
               <LayoutGrid size={16} />
             </button>
             <button
               className={`home-vista-btn ${vista === "lista" ? "active" : ""}`}
-              onClick={() => setVista("lista")}
-              title="Vista lista"
+              onClick={() => { setVista("lista"); localStorage.setItem("vistaClientas", "lista"); }}              title="Vista lista"
             >
               <List size={16} />
             </button>
